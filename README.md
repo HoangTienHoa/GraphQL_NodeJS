@@ -53,3 +53,5 @@ Use GraphQL and NodeJS
   Ex: https://www.apollographql.com/blog/graphql/examples/4-simple-ways-to-call-a-graphql-api/
 # Ref
     https://graphql.org/graphql-js/running-an-express-graphql-server/
+    https://medium.com/codingthesmartway-com-blog/creating-a-graphql-server-with-node-js-and-express-f6dddc5320e1
+    https://medium.com/devnetwork/super-simple-graphql-with-node-f5f8fca0c82f 

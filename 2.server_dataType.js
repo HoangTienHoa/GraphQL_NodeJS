@@ -4,17 +4,24 @@ const { buildSchema } = require("graphql");
 require("isomorphic-fetch");
 
 // Construct a schema, using GraphQL schema language
-const schema = buildSchema(`
+let schema = buildSchema(`
   type Query {
-    hello: String
+    quoteOfTheDay: String
+    random: Float!
+    rollThreeDice: [Int]
   }
 `)
 
 // The root provides a resolver function for each API endpoint
-//Provide data for each API endpoint
 const root = {
-    hello: () => {
-        return "Hello world!"
+    quoteOfTheDay: () => {
+        return Math.random() < 0.5 ? "Take it easy" : "Salvation lies within"
+    },
+    random: () => {
+        return Math.random()
+    },
+    rollThreeDice: () => {
+        return [1, 2, 3].map(_ => 1 + Math.floor(Math.random() * 6))
     },
 }
 
@@ -27,20 +34,19 @@ app.use(
         graphiql: true,
     })
 )
-app.get("/",async (req, res)=>{
+app.get("/", (req, res)=>{
     fetch("http://localhost:3000/graphql", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
         },
-        body: JSON.stringify({ query: "{ hello }" }),
-    })
-        .then(r => r.json())
+        body: JSON.stringify({ query: "{ quoteOfTheDay,random ,rollThreeDice}" }),
+    }).then(r => r.json())
         .then(data => {
             console.log("data returned:", data);
             res.send(data);
-        })
+        });
 })
 app.listen(3000)
 console.log("Running a GraphQL API server at http://localhost:3000/graphql")

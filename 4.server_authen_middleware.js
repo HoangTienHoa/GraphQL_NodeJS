@@ -17,6 +17,7 @@ const loggingMiddleware = (req, res, next) => {
 
 let root = {
     ip: function (args, request) {
+        console.log("rootip:", request.ip);
         return request.ip
     },
 }
